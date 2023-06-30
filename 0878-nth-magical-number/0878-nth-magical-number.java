@@ -8,15 +8,27 @@ class Solution {
         
         long lcm = LCM(a,b);     
 		
-        while (left < right) {
-            long m = left+(right-left)/2;
-			
-            if ((m / a) + (m / b) - (m / lcm) < n) left = m + 1;   
-			
-            else right = m;
+        long ans = 0, low = left, high = right;
+        
+        while (low<=high) {
+            
+            long mid = (low+high)/2;
+            
+            long count = ((mid/a)+(mid/b)-(mid/lcm));
+            
+            if(count>n){
+                high = mid - 1;
+            }else if(count<n){
+                low = mid+1;
+            }else{
+                ans = mid;
+                high = mid-1;
+            }
         }
-        return (int)(left % mod);
+        
+        return (int)(ans % mod);
     } 
+    
      public int gcd(int a, int b)
     {
         if (a == 0)
